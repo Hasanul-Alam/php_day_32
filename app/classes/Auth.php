@@ -31,6 +31,10 @@ class Auth
         $this->user = mysqli_fetch_assoc($this->queryResult);
         if($this->user)
         {
+            session_start();
+            $_SESSION['name'] = $this->user['name'];
+            $_SESSION['id'] = $this->user['id'];
+
             header('Location: action.php?page=dashboard');
         }
         else
@@ -41,6 +45,10 @@ class Auth
 
     public function logout()
     {
+        session_start();
+        unset($_SESSION['name']);
+        unset($_SESSION['id']);
+
         header('Location: action.php?page=login');
     }
 }
